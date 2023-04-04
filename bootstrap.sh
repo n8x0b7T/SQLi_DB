@@ -1,0 +1,1 @@
+sudo mysql -u root -p -e "source database.sql"
