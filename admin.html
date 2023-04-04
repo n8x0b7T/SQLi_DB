@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+
+    <style>
+        /* Style the form container */
+        form {
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f2f2f2;
+            box-shadow: 0px 0px 10px #aaa;
+        }
+
+        /* Style the form fields */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2E8B57;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <label for="username">Enter your username:</label>
+        <input type="text" id="username" name="username">
+        <br>
+        <label for="password">Enter your password:</label>
+        <input type="password" id="password" name="password">
+        <br>
+        <button type="submit">Log in</button>
+    </form>
+
+    <script>
+        // Get the form and submit button elements
+        const form = document.querySelector('form');
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        // Add an event listener to the form for when it is submitted
+        form.addEventListener('submit', event => {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Get the values of the username and password input fields
+            const username = form.elements.username.value.trim();
+            const password = form.elements.password.value.trim();
+
+            // Store the values in cookies with a 7-day expiration
+            document.cookie = `username=${encodeURIComponent(username)}`;
+            document.cookie = `password=${encodeURIComponent(password)}`;
+
+            window.location.reload();
+        });
+    </script>
+</body>
+
+</html>
