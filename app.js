@@ -1,22 +1,22 @@
 const express = require('express')
 const app = express()
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
 
-const crypto = require('crypto');
+const crypto = require('crypto')
 
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }))
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 var mysql = require('mysql');
 const { hasSubscribers } = require('diagnostics_channel');
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'mypass',
+    password: 'new_password',
     database: 'shop'
 })
 
@@ -47,7 +47,7 @@ app.get('/admin', function (req, res) {
 
             hash = crypto.createHash('md5').update(req.cookies.password).digest('hex');
         } else {
-            res.sendFile(`${__dirname}/admin.html`);
+            res.sendFile(`${__dirname}/admin.html`)
         }
 
         loggedIn = false
@@ -78,7 +78,6 @@ app.get('/admin', function (req, res) {
 })
 
 
-
 app.post('/admin', function (req, res) {
     connection.query(`SELECT * from ShopUser`, function (error, results, fields) {
         if (error) {
@@ -87,7 +86,6 @@ app.post('/admin', function (req, res) {
         }
 
         if (req.cookies.password) {
-
             hash = crypto.createHash('md5').update(req.cookies.password).digest('hex');
         } else {
             res.sendFile(`${__dirname}/admin.html`);
@@ -98,8 +96,6 @@ app.post('/admin', function (req, res) {
 
             if (results[i].userName == req.cookies.username &&
                 results[i].userHash == hash) {
-                // res.sendFile(`${__dirname}/loggedin.html`);
-
                 loggedIn = true;
             }
 
@@ -109,12 +105,11 @@ app.post('/admin', function (req, res) {
         if (loggedIn) {
 
             connection.query(
-                `insert into ShopItem(itemID, itemName, itemPrice, itemStock) values(${eval(req.body.itemID)}, "${eval(req.body.itemName)}", ${(req.body.itemPrice)}, ${eval(req.body.itemStock)});`,
+                `insert into ShopItem(itemID, itemName, itemPrice, itemStock) values(${eval(req.body.itemID)}, "${req.body.itemName}", ${eval(req.body.itemPrice)}, ${eval(req.body.itemStock)});`,
                 function (error, results, fields) {
                     console.log(error)
                 })
-
-            res.send(req.query)
+            res.redirect("/admin")
 
         }
 
