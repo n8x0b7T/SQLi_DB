@@ -54,7 +54,7 @@
     <script>
         async function handleClick() {
             query = document.getElementById("search").value
-            const response = await fetch(`http://localhost:3000/search?s=${query}`);
+            const response = await fetch(`/search?s=${query}`);
             const data = await response.json();
             console.log(data);
 
